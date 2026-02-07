@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For My Akka ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  overflow:hidden;
+  background: linear-gradient(-45deg, #ff5f6d, #ffc371, #ff7eb3, #8fd3f4);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* Intro screen */
+#intro{
+  position:fixed;
+  inset:0;
+  background:#0f3460;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:9999;
+  transition:opacity 1s ease;
+}
+#intro h2{margin-bottom:20px;font-weight:300}
+#intro button{
+  padding:12px 24px;
+  border:none;
+  border-radius:30px;
+  background:#ff4da6;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+/* Card */
+.card{
+  width:92%;
+  max-width:420px;
+  text-align:center;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.08);
+  padding:15px;
+  border-radius:25px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+
+h1{
+  margin:15px 0 8px;
+  font-size:30px;
+  text-shadow:0 0 20px #fff,0 0 35px #ff4da6;
+}
+
+#typing{
+  font-size:15px;
+  min-height:65px;
+  margin-bottom:12px;
+  padding:0 8px;
+}
+
+/* Slideshow */
+.slideshow{
+  width:100%;
+  aspect-ratio:9/16;
+  border-radius:25px;
+  overflow:hidden;
+  position:relative;
+  margin-top:10px;
+  border:3px solid rgba(255,255,255,0.7);
+  box-shadow:0 0 40px rgba(255,105,180,0.7);
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity 1s ease-in-out;
+}
+.slide.active{opacity:1}
+
+.bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:blur(30px) brightness(0.6);
+  transform:scale(1.2);
+}
+
+.slide img{
+  position:absolute;
+  inset:0;
+  margin:auto;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  border-radius:12px;
+  animation:zoom 6s ease-in-out infinite alternate;
+}
+@keyframes zoom{
+  from{transform:scale(1)}
+  to{transform:scale(1.08)}
+}
+
+.footer{
+  margin-top:15px;
+  font-size:13px;
+}
+
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Intro -->
+<div id="intro">
+  <h2>Your surprise is waiting… 🎁</h2>
+  <button onclick="startSurprise()">Open</button>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<div class="card">
+  <h1>Happy Birthday Akka 🎉</h1>
+  <div id="typing"></div>
+
+  <div class="slideshow">
+    <div class="slide active">
+      <div class="bg" style="background-image:url('photo1.jpg')"></div>
+      <img src="photo1.jpg.jpeg">
+    </div>
+    <div class="slide">
+      <div class="bg" style="background-image:url('photo2.jpg')"></div>
+      <img src="photo2.jpg.jpeg">
+    </div>
+    <div class="slide">
+      <div class="bg" style="background-image:url('photo3.jpg')"></div>
+      <img src="photo3.jpg.jpeg">
+    </div>
+    <div class="slide">
+      <div class="bg" style="background-image:url('photo4.jpg')"></div>
+      <img src="photo4.jpg.jpeg">
+    </div>
+    <div class="slide">
+      <div class="bg" style="background-image:url('photo5.jpg')"></div>
+      <img src="photo5.jpg.jpeg">
+    </div>
+    <div class="slide">
+      <div class="bg" style="background-image:url('photo6.jpg')"></div>
+      <img src="photo6.jpg.jpeg">
+    </div>
+  </div>
+
+  <div class="footer">Made with endless love by your brother ❤️</div>
+</div>
+
+<!-- Your audio file -->
+<audio id="bgMusic" src="music.mp3"></audio>
+
+<script>
+function startSurprise(){
+  document.getElementById("intro").style.opacity="0";
+  setTimeout(()=>{document.getElementById("intro").style.display="none";},1000);
+  document.getElementById("bgMusic").play(); // auto music after tap
+}
+
+// Typing
+const message = "You are my bestest sister in this whole world, my forever supporter, and the most beautiful soul in my life. Today is all about celebrating YOU and the happiness you bring to everyone around you. I’m so lucky to have you as my sister i don't wanna leave you akka bcz you are something above my life if you notice anything like even little things makes me happy and you are so adorable that no one can replace your place in my heart you stay forever in my heart without paying any rent.... Love you so much Akka.. ❤️";
+let i=0;
+function type(){
+  if(i<message.length){
+    document.getElementById("typing").innerHTML+=message.charAt(i);
+    i++;
+    setTimeout(type,30);
+  }
+}
+type();
+
+// Slideshow
+let slides=document.querySelectorAll(".slide");
+let index=0;
+setInterval(()=>{
+  slides[index].classList.remove("active");
+  index=(index+1)%slides.length;
+  slides[index].classList.add("active");
+},3000);
+
+// Confetti
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let pieces=[];
+for(let i=0;i<100;i++){
+  pieces.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*4});
+}
+setInterval(()=>{
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="white";
+  pieces.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.y+=1.5;
+    if(p.y>canvas.height)p.y=0;
+  });
+},20);
+</script>
+
+</body>
+</html>
